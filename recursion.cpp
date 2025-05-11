@@ -201,36 +201,88 @@ using namespace std;
 
 
 //minimum number of coin to reach sum of target rupee from n coins
-int solve(vector<int>&arr,int target){
+// int solve(vector<int>&arr,int target){
 
+//     //base case
+//     if(target==0) return 0;
+//     if(target<0) return INT_MAX;
+
+//     int mini=INT_MAX;
+//     for(int i=0;i<arr.size();i++){
+//         int ans=solve(arr,target-arr[i]);
+//         if(ans!=INT_MAX){
+//             mini=min(mini,ans+1);
+//         }
+//     }
+//     return mini;
+// }
+
+// int main(){
+//     vector<int>arr{1,2};
+//     int target =5;
+
+//     int ans=solve(arr,target);
+//     cout<<"answer is "<<ans<<endl;
+//     return 0;
+// }
+
+
+
+
+
+//given a rod and you have to cut into minimum number of segmet according to given array
+
+// int solve(int n,int x,int y, int z){
+//     if(n==0) return 0;
+//     if(n<0) return INT_MIN;
+
+//     int ans1=solve(n-x,x,y,z)+1;
+//     int ans2=solve(n-y,x,y,z)+1;
+//     int ans3=solve(n-z,x,y,z)+1;
+
+//     int ans=max(ans1, max(ans2,ans3));
+//     return ans;
+// }
+// int main(){
+//     int n=7;
+//     int x=5;
+//     int y=2;
+//     int z=2;
+
+//     int ans= solve(n,x,y,z);
+//     if(ans<0){
+//         ans=0;
+//     }
+//     cout<<"answer is "<<ans;
+//     return 0;
+// }
+
+//maximum sum of non adjacent element
+void solve(vector<int>& arr,int i,int sum,int &maxi){
     //base case
-    if(target==0) return 0;
-    if(target<0) return INT_MAX;
-
-    int mini=INT_MAX;
-    for(int i=0;i<arr.size();i++){
-        int ans=solve(arr,target-arr[i]);
-        if(ans!=INT_MAX){
-            mini=min(mini,ans+1);
-        }
+    if(i>=arr.size()){
+        //maxi update
+        maxi=max(sum,maxi);
+        return;
     }
-    return mini;
-}
 
+    //inclue
+    solve(arr,i+2,sum+arr[i],maxi);
+
+    //exclude
+    solve(arr,i+1,sum,maxi);
+}
 int main(){
-    vector<int>arr{1,2};
-    int target =5;
+    vector<int>arr{2,1,4,9};
+    int sum=0;
+    int maxi=INT_MIN;
+    int i=0;
 
-    int ans=solve(arr,target);
-    cout<<"answer is "<<ans<<endl;
-    return 0;
+    solve(arr,i,sum,maxi);
+    cout<<maxi;
+    return 0; 
+
 }
-
-
-
-
-
-
 
 
 
